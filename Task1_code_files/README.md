@@ -1,6 +1,6 @@
 ### Step 1: Build the Code
 
-From inside the `task1` directory, run:
+From inside the `task1_code_files` directory, run:
 
 ```bash
 gcc main.c gpio.c -o task1_demo
