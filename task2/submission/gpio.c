@@ -1,14 +1,12 @@
 #include "ch32v00x.h"
 #include "gpio.h"
 
-/* -------- UART LOW LEVEL -------- */
 static void uart_send_char(char c)
 {
     while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
     USART_SendData(USART1, c);
 }
 
-/* UART init: USART1 TX on PD5 */
 void uart_init(void)
 {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD |
@@ -16,7 +14,6 @@ void uart_init(void)
 
     GPIO_InitTypeDef gpio;
 
-    /* PD5 -> USART1 TX */
     gpio.GPIO_Pin = GPIO_Pin_5;
     gpio.GPIO_Mode = GPIO_Mode_AF_PP;
     gpio.GPIO_Speed = GPIO_Speed_50MHz;
@@ -34,7 +31,6 @@ void uart_init(void)
     USART_Cmd(USART1, ENABLE);
 }
 
-/* Print string */
 void uart_print(const char *msg)
 {
     while(*msg)
@@ -43,7 +39,6 @@ void uart_print(const char *msg)
     }
 }
 
-/* -------- GPIO (LED) -------- */
 void gpio_init(void)
 {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);
